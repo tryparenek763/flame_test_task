@@ -19,6 +19,7 @@
 <style lang="scss" scoped>
 #app {
   display: flex;
+  font-family: 'Inter';
 
   .home {
     margin: auto;

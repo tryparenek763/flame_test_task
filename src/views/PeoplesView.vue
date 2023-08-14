@@ -1,12 +1,23 @@
 <template>
     <div class="people">
-        <header class="people__header">People</header>
+        <header class="people__header">Peoples</header>
 
         <div class="people__table">
             <custom-table
                 :tableData="peoples"
                 :columns="columns"
-            />
+            >
+            <template #data:buttons>
+                <custom-button class="add-button">
+                  Добавить
+                </custom-button>
+
+                <custom-button type="remove">
+                  Удалить
+                </custom-button>
+            </template>
+
+            </custom-table>
         </div>
     </div>
 </template>
@@ -14,9 +25,10 @@
 <script lang="ts" setup>
 import { getPeople } from '../api/people'
 import { ref } from 'vue'
-import { CustomTable } from '../components'
+import { CustomTable, CustomButton } from '../components'
+import { PeopleListBrief, PeopleList } from '@/types'
 
-const peoples = ref<any>([])
+const peoples = ref<PeopleListBrief[]>([])
 
 const columns = [
   {
@@ -37,14 +49,14 @@ const columns = [
   },
   {
     key: 'buttons',
-    label: 'Добавить/Удалить из избранных'
+    label: 'Добавить/Удалить в/из избранных'
   }
 ]
 
 const getPeoples = async (): Promise<void> => {
   const result = await getPeople()
 
-  peoples.value = result.results.map((el: any) => {
+  peoples.value = result.results.map((el: PeopleList) => {
     return {
       name: el.name,
       height: el.height,
@@ -70,7 +82,15 @@ getPeoples()
     }
 
     &__table {
-        width: 800px;
+        max-width: 1300px;
+
+        &-buttons {
+          display: flex;
+          justify-content: space-around;
+        }
+    }
+    .add-button {
+      margin-right: 16px
     }
 }
 </style>

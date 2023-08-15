@@ -7,7 +7,10 @@ export interface PeopleListBrief {
     name: string,
     height: string,
     'hair_color': string,
-    mass: string
+    mass: string,
+}
+export interface PeopleListBriefWithId extends PeopleListBrief {
+    id: string,
 }
 
 export interface PeopleList extends PeopleListBrief {

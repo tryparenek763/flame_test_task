@@ -7,12 +7,19 @@
                 :tableData="peoples"
                 :columns="columns"
             >
-            <template #data:buttons>
-                <custom-button class="add-button">
+            <template #data:buttons="{ item }">
+                <custom-button
+                  @click="addPerson(item)"
+                  :disabled="isDisabledSaveButton(item)"
+                  class="add-button"
+                >
                   Добавить
                 </custom-button>
 
-                <custom-button type="remove">
+                <custom-button
+                  @click="removePerson(item)"
+                  type="remove"
+                >
                   Удалить
                 </custom-button>
             </template>
@@ -24,11 +31,19 @@
 
 <script lang="ts" setup>
 import { getPeople } from '../api/people'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { CustomTable, CustomButton } from '../components'
-import { PeopleListBrief, PeopleList } from '@/types'
+import { PeopleList, PeopleListBriefWithId } from '@/types'
+import { getIdByUrl } from '../shared/utils/getIdByUrl'
+import { useStore } from 'vuex'
+import { ADD_FAVORITE_PERSON, REMOVE_FAVORITE_PERSON } from '@/store/mutations'
+import { GET_FAVORITES_PEOPLE } from '@/store/actions'
 
-const peoples = ref<PeopleListBrief[]>([])
+const store = useStore()
+
+const peoples = ref<PeopleListBriefWithId[]>([])
+
+const favoritesPeople = computed(() => store.state.common.favoritesPeople)
 
 const columns = [
   {
@@ -53,17 +68,31 @@ const columns = [
   }
 ]
 
+const isDisabledSaveButton = (person: PeopleListBriefWithId): boolean => {
+  // console.log(favoritesPeople.value?.findIndex((el: PeopleListBriefWithId) => el.id === person.id))
+  return false
+}
+
 const getPeoples = async (): Promise<void> => {
   const result = await getPeople()
 
   peoples.value = result.results.map((el: PeopleList) => {
     return {
+      id: getIdByUrl(el.url),
       name: el.name,
       height: el.height,
       hair_color: el.hair_color,
       mass: el.mass
     }
   })
+}
+
+const removePerson = (person: PeopleListBriefWithId): void => {
+  store.commit(REMOVE_FAVORITE_PERSON, person)
+}
+
+const addPerson = (person: PeopleListBriefWithId): void => {
+  store.commit(ADD_FAVORITE_PERSON, person)
 }
 
 getPeoples()

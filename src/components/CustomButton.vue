@@ -4,6 +4,7 @@
             `custom-button custom-button__${type}`
         ]"
         @click="onClick"
+        :disabled="disabled"
     >
 
         <slot />
@@ -13,7 +14,8 @@
 <script lang="ts" setup>
 
 interface Props {
-    type?: string
+    type?: string,
+    disabled?: boolean
 }
 
 interface Emits {
@@ -22,7 +24,8 @@ interface Emits {
 
 // eslint-disable-next-line no-undef
 withDefaults(defineProps<Props>(), {
-  type: 'add'
+  type: 'add',
+  disabled: false
 })
 
 // eslint-disable-next-line no-undef

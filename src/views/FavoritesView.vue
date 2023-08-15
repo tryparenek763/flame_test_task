@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { CustomTable, CustomButton } from '../components'
-import { PeopleListBriefWithId } from '@/types'
+import { PeopleBriefWithId } from '@/types'
 import { useStore } from 'vuex'
 import { REMOVE_FAVORITE_PERSON } from '@/store/mutations'
 
@@ -55,7 +55,7 @@ const columns = [
   }
 ]
 
-const removePerson = (person: PeopleListBriefWithId): void => {
+const removePerson = (person: PeopleBriefWithId): void => {
   store.commit(REMOVE_FAVORITE_PERSON, person)
 }
 </script>

@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
 import { getPeople } from '@/api/people'
-import { PeopleList } from '@/shared/types'
+import { People } from '@/shared/types'
 import { ref, computed, watch } from 'vue'
 import { getIdByUrl } from '../shared/utils/getIdByUrl'
 
@@ -44,7 +44,7 @@ const props = defineProps<Props>()
 // eslint-disable-next-line no-undef
 const emit = defineEmits<Emit>()
 
-const searchPeoples = ref<PeopleList[]>([])
+const searchPeoples = ref<People[]>([])
 
 const inputValue = computed({
   get () {
@@ -72,7 +72,7 @@ watch(
 )
 </script>
 
-<style style lang="scss" scoped>
+<style lang="scss" scoped>
 .search {
     position: relative;
 
@@ -101,7 +101,7 @@ watch(
             cursor: pointer;
 
             &:hover {
-                background-color: #bde7cd;
+                background-color: #F7F7F7;
             }
         }
     }

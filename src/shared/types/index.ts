@@ -3,17 +3,17 @@ export interface Columns {
     label: string,
 }
 
-export interface PeopleListBrief {
+export interface PeopleBrief {
     name: string,
     height: string,
     'hair_color': string,
     mass: string,
 }
-export interface PeopleListBriefWithId extends PeopleListBrief {
+export interface PeopleBriefWithId extends PeopleBrief {
     id: string,
 }
 
-export interface PeopleList extends PeopleListBrief {
+export interface People extends PeopleBrief {
     'skin_color': string,
     'eye_color': string,
     'birth_year': string,
@@ -23,7 +23,7 @@ export interface PeopleList extends PeopleListBrief {
     species: string[],
     vehicles: string[], // example: ['https://swapi.dev/api/vehicles/14/']
     starships: string[], // example: ['https://swapi.dev/api/starships/12/']
-    created: string | Date,
-    edited: string | Date,
+    created: string,
+    edited: string,
     url: string, // example: 'https://swapi.dev/api/people/1/
 }

@@ -54,6 +54,11 @@ const onClick = (el: unknown) => {
     font-size: 14px;
     line-height: 24px;
 
+    &:disabled {
+        opacity: 0.5;
+        cursor:not-allowed;
+    }
+
     &__add {
         background-color: #47A76A;
         color: #FFFFFF;
@@ -75,6 +80,7 @@ const onClick = (el: unknown) => {
             background-color: #F7F7F7;
             border: 1px solid #F7F7F7;
         }
+
     }
 }
 </style>

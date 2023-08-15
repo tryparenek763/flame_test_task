@@ -10,7 +10,7 @@
             <template #data:buttons="{ item }">
                 <custom-button
                   @click="addPerson(item)"
-                  :disabled="isDisabledSaveButton(item)"
+                  :disabled="isIncludePerson(item)"
                   class="add-button"
                 >
                   Добавить
@@ -18,6 +18,7 @@
 
                 <custom-button
                   @click="removePerson(item)"
+                  :disabled="!isIncludePerson(item)"
                   type="remove"
                 >
                   Удалить
@@ -37,7 +38,6 @@ import { PeopleList, PeopleListBriefWithId } from '@/types'
 import { getIdByUrl } from '../shared/utils/getIdByUrl'
 import { useStore } from 'vuex'
 import { ADD_FAVORITE_PERSON, REMOVE_FAVORITE_PERSON } from '@/store/mutations'
-import { GET_FAVORITES_PEOPLE } from '@/store/actions'
 
 const store = useStore()
 
@@ -68,9 +68,8 @@ const columns = [
   }
 ]
 
-const isDisabledSaveButton = (person: PeopleListBriefWithId): boolean => {
-  // console.log(favoritesPeople.value?.findIndex((el: PeopleListBriefWithId) => el.id === person.id))
-  return false
+const isIncludePerson = (person: PeopleListBriefWithId): boolean => {
+  return !!favoritesPeople.value?.find((el: PeopleListBriefWithId) => el.id === person.id)
 }
 
 const getPeoples = async (): Promise<void> => {

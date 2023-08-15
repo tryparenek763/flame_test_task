@@ -1,9 +1,14 @@
 <template>
     <div class="search">
-        <input class="search__input" v-model="inputValue" />
+        <input
+            v-model="inputValue"
+            @focus="onFocus"
+            @blur="onBlur"
+            class="search__input"
+        />
 
         <div
-          v-if="searchPeoples.length"
+          v-if="isFocused && searchPeoples.length"
           class="search__list"
         >
             <div
@@ -46,6 +51,8 @@ const emit = defineEmits<Emit>()
 
 const searchPeoples = ref<People[]>([])
 
+const isFocused = ref<boolean>(false)
+
 const inputValue = computed({
   get () {
     return props.modelValue
@@ -60,6 +67,14 @@ const getSeachedPeople = async (text?: string) => {
   const result = await getPeople(text)
 
   searchPeoples.value = result.results
+}
+
+const onFocus = () => {
+  isFocused.value = true
+}
+
+const onBlur = () => {
+  isFocused.value = false
 }
 
 watch(

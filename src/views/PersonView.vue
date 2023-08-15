@@ -1,3 +1,3 @@
 <template>
-    <input>
+    Person
 </template>

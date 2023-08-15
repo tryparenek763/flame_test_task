@@ -2,7 +2,7 @@
   <div class="home">
       <router-link
         class="home__link"
-        to="/Peoples"
+        to="/peoples"
       >
         Peoples
       </router-link>

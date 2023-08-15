@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PeoplesView from '../views/PeoplesView.vue'
-import PeopleView from '../views/PeopleView.vue'
+import PersonView from '../views/PersonView.vue'
 import FavoritesView from '../views/FavoritesView.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -18,15 +18,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/peoples',
     name: 'peoples',
-    component: PeoplesView,
-
-    children: [
-      {
-        path: '/peoples/:id',
-        component: PeopleView
-      }
-    ]
+    component: PeoplesView
+  },
+  {
+    path: '/peoples/:id',
+    name: 'people-page',
+    component: PersonView
   }
+
 ]
 
 const router = createRouter({

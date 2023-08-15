@@ -2,6 +2,10 @@
     <div class="people">
         <header class="people__header">Peoples</header>
 
+        <div class="people__search">
+          <search v-model="searchText"/>
+        </div>
+
         <div class="people__table">
             <custom-table
                 :tableData="peoples"
@@ -33,13 +37,15 @@
 <script lang="ts" setup>
 import { getPeople } from '../api/people'
 import { ref, computed } from 'vue'
-import { CustomTable, CustomButton } from '../components'
+import { CustomTable, CustomButton, Search } from '../components'
 import { PeopleList, PeopleListBriefWithId } from '@/types'
 import { getIdByUrl } from '../shared/utils/getIdByUrl'
 import { useStore } from 'vuex'
 import { ADD_FAVORITE_PERSON, REMOVE_FAVORITE_PERSON } from '@/store/mutations'
 
 const store = useStore()
+
+const searchText = ref<string>('')
 
 const peoples = ref<PeopleListBriefWithId[]>([])
 
@@ -102,6 +108,10 @@ getPeoples()
 .people {
     margin-top: 32px;
     margin-left: 32px;
+
+    &__search {
+      margin-bottom: 24px;
+    }
 
     &__header {
         font-size: 32px;
